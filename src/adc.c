@@ -53,7 +53,6 @@ void ADC_StartConv(unsigned char ChannelNum){
 #if (USE_POLLING==1)
 void ADC_GetConversionState(unsigned char* ConversionStatePtr)
 {
-
 	*ConversionStatePtr=(ADC1->SR & ADC_SR_EOC);
 }
 #endif
