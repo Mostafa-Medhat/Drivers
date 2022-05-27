@@ -8,9 +8,14 @@
 #ifndef INCLUDE_ADC_H_
 #define INCLUDE_ADC_H_
 
+#include "gpio.h"
+
 #define USE_POLLING 1
 
+#define ADC_MAX_VOLT_VALUE	5
+#define ADC_MAXIMUM_VALUE	4095
 
+#define ADC_CHANNEL_PIN_ID	PIN0_ID
 
 
 typedef enum {bit12,bit10,bit8,bit6}Resolution;
@@ -20,7 +25,6 @@ typedef struct myStruct {
 
 	 Resolution resolution;
 	 Conversion_mode conversionMode;
-	 int Vref;
 } ADCConfigType;
 
 

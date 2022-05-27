@@ -13,7 +13,7 @@
 //#include "gpio.h"
 //#include "adc.h"
 //
-//#define LOGIC_LOW	0
+//#define LOGIC_LOW		0
 //#define LOGIC_HIGH	1
 //int main(void)
 //{

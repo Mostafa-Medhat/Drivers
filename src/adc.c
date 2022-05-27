@@ -11,7 +11,7 @@
 
 
 void ADC_Init(ADCConfigType* ConfigParamPtr){
-	  /* Enable ADC1 clock */
+	/* Enable ADC1 clock */
 	RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
 
 	/* Enable ADC */

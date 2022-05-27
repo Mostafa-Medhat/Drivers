@@ -45,6 +45,9 @@
 #define PULL_UP					1
 #define PULL_DOWN				2
 
+#define LOGIC_LOW				0
+#define LOGIC_HIGH				1
+
 
 /*
  **************************************************************************
