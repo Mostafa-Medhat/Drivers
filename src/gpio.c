@@ -111,3 +111,10 @@ char GPIO_ReadPin(GPIO_TypeDef * GPIOx, char pin)
 		}
 	}
 }
+
+int debounce (GPIO_TypeDef* GPIOx, char pin)
+{
+static uint16_t state=0;
+state =(state<<1) | GPIO_ReadPin(GPIOx, pin) |0xfe00;
+return (state ==0xff00);
+}

@@ -72,6 +72,8 @@ void GPIO_Init(GPIO_TypeDef * GPIOx, char pin, GPIO_PinDirection dir,char mode ,
 char GPIO_WritePin(GPIO_TypeDef * GPIOx, char pin, char state);
 void GPIO_WritePort(GPIO_TypeDef * GPIOx, char value);
 char GPIO_ReadPin(GPIO_TypeDef * GPIOx, char pin);
+int debounce (GPIO_TypeDef* GPIOx, char pin);
+
 
 
 #endif /* INCLUDE_GPIO_H_ */

@@ -13,6 +13,7 @@
 #include "lm35_sensor.h"
 
 #include "adc.h"
+#include "LCD-4bit.h"
 
 /*
  * Description :
@@ -21,23 +22,22 @@
 unsigned char LM35_getTemperature(void)
 {
 	unsigned char temp_value = 0;
-	unsigned short int adc_value = 0;
-	unsigned char EOC_flag=0;
+	unsigned char valid_flag=0;
 
-	ADC_StartConv(ADC_CHANNEL_PIN_ID);
+#if(USE_POLLING==LOGIC_HIGH)
 
 	/* Read ADC channel where the temperature sensor is connected */
-	EOC_flag = ADC_ReadData(&adc_value);
+	valid_flag = ADC_ReadData(&adc_value);
+#endif
 
-	if(!EOC_flag)
+	if(!valid_flag)
 	{
 		/* Calculate the temperature from the ADC value*/
-		temp_value = (unsigned char)(((uint32_t)adc_value*SENSOR_MAX_TEMPERATURE*ADC_MAX_VOLT_VALUE)/(ADC_MAXIMUM_VALUE*SENSOR_MAX_VOLT_VALUE));
+		temp_value = (unsigned char)(((unsigned long)adc_value*SENSOR_MAX_TEMPERATURE*ADC_MAX_VOLT_VALUE)/(ADC_MAXIMUM_VALUE*SENSOR_MAX_VOLT_VALUE));
 		return temp_value;
 	}
 	else
 	{
-		return UNCOMPLETED_CONVERSION; // return of non completed conversion condition
+		return 0;
 	}
 }
-

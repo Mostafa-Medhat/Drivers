@@ -22,7 +22,7 @@
 #define SENSOR_MAX_VOLT_VALUE     1.5
 #define SENSOR_MAX_TEMPERATURE    150
 
-#define UNCOMPLETED_CONVERSION		200
+#define UNCOMPLETED_CONVERSION		0
 
 /*******************************************************************************
  *                      Functions Prototypes                                   *

@@ -17,6 +17,9 @@
 
 #define ADC_CHANNEL_PIN_ID	PIN0_ID
 
+extern volatile unsigned short int adc_value;
+
+
 
 typedef enum {bit12,bit10,bit8,bit6}Resolution;
 typedef enum  {single , continuous}Conversion_mode;
@@ -30,8 +33,9 @@ typedef struct myStruct {
 
 
 void ADC_Init(ADCConfigType* );
-void ADC_StartConv(unsigned char );
-unsigned char ADC_ReadData(unsigned short int* );
+void ADC_GetConversionState(unsigned char* ConversionStatePtr);
+void ADC_StartConv(unsigned char ChannelNum);
+unsigned char ADC_ReadData(volatile unsigned short int* );
 
 
 //void ADC_GetConversionState(unsigned char* );

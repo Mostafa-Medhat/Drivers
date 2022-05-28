@@ -9,6 +9,8 @@
 #include "adc.h"
 #include "gpio.h"
 
+volatile unsigned short int adc_value=0;
+
 
 void ADC_Init(ADCConfigType* ConfigParamPtr){
 	/* Enable ADC1 clock */
@@ -32,44 +34,54 @@ void ADC_Init(ADCConfigType* ConfigParamPtr){
 	if(USE_POLLING==1){
 		ADC1->CR1 &=~(1<<5);// no interrupt
 	}
-	else {
+	else
+	{
 		ADC1->CR1 |=(1<<5); 	 // with interrupt
+		NVIC->ISER[0]|=(1u<<(18));
 	}
 
 
 }
 
-void ADC_StartConv(unsigned char ChannelNum){
-	/*initializing the channel pin as analog pin,Assuming PORT A*/
-	GPIO_Init(GPIOA,ChannelNum,ANALOG_MODE,NO_PULLUP_NO_PULLDOWN,RCC_GPIOA);
-
+void ADC_StartConv(unsigned char ChannelNum)
+{
 	/* Start conversion of regular channels */
 	  ADC1->CR2 |= ADC_CR2_SWSTART;
 }
 
 
 
-
-#if (USE_POLLING==1)
+#if(USE_POLLING==LOGIC_HIGH)
 void ADC_GetConversionState(unsigned char* ConversionStatePtr)
 {
-	*ConversionStatePtr=(ADC1->SR & ADC_SR_EOC);
+	if(ADC1->SR & ADC_SR_EOC)
+	{
+	*ConversionStatePtr= LOGIC_HIGH;
+	}
+	else
+	{
+	*ConversionStatePtr=LOGIC_LOW;
+	}
 }
-#endif
 
 
-unsigned char ADC_ReadData(unsigned short int* DataPtr){
+unsigned char ADC_ReadData(volatile unsigned short int* DataPtr)
+{
 
-	if((ADC1->SR & ADC_SR_EOC) == ADC_SR_EOC){// if the conversion is finished
+	unsigned char EOC_flag;
+	ADC_GetConversionState(&EOC_flag);
+	if(EOC_flag)
+	{
+		// if the conversion is finished
 	    /* Read analog data and clear EOC flag */
 		*DataPtr = ADC1->DR;
-	    /* Start conversion of regular channels */
-	    ADC1->CR2 |= ADC_CR2_SWSTART;
 	    return 0;
-	  }
-	  else {
+	}
+	else
+	{
 	    /* Regular conversion is not done */
 		  return 1;
-	  }
+	}
 }
+#endif
 
