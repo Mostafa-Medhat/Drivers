@@ -44,6 +44,7 @@
 //	 * Get Initial Temperature
 //	 */
 //	ADC_StartConv(ADC_CHANNEL_PIN_ID);
+// 	delay_ms(10);
 //	temperature=LM35_getTemperature();
 //
 //	while(1)

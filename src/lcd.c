@@ -60,7 +60,7 @@ void LCD_sendCommand(uint8_t command)
 	delay_ms(1); /* delay for processing Tas = 50ns */
 	GPIO_WritePin(LCD_E_PORT_ID,LCD_E_PIN_ID,LOGIC_HIGH); /* Enable LCD E=1 */
 	delay_ms(1); /* delay for processing Tpw - Tdws = 190ns */
-	GPIO_WritePort(LCD_DATA_PORT_ID,command); /* out the required command to the data bus D0 --> D7 */
+	GPIO_WritePort(LCD_DATA_PORT_ID,(command<<LCD_DATA_START_PIN_ID)); /* out the required command to the data bus D0 --> D7 */
 	delay_ms(1); /* delay for processing Tdsw = 100ns */
 	GPIO_WritePin(LCD_E_PORT_ID,LCD_E_PIN_ID,LOGIC_LOW); /* Disable LCD E=0 */
 	delay_ms(1); /* delay for processing Th = 13ns */
