@@ -38,13 +38,15 @@
 //	lcd_init();
 //	lcd_dispString("Hello,Mada7oota");
 //	lcd_clrScreen();
-//	lcd_dispString("Temp =    C");	//Print "Temp =   C" on LCD
+//	lcd_dispString("Temp =    ");
+//	lcd_displayChar(0xDF);
+//	lcd_dispString("C");	//Print "Temp =   C" on LCD
 //
 //	/*
 //	 * Get Initial Temperature
 //	 */
 //	ADC_StartConv(ADC_CHANNEL_PIN_ID);
-// 	delay_ms(10);
+//	delay_ms(10);
 //	temperature=LM35_getTemperature();
 //
 //	while(1)
