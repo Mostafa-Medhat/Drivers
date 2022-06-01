@@ -6,7 +6,6 @@
  *
  * Description: Source file for LCD driver
  *
- * Author: Muhammad Al-Barbary
  *
  *******************************************************************************/
 #include "gpio.h"
@@ -33,7 +32,7 @@ void LCD_SendCommand(unsigned char command){
 	for(int MiniDelay=0;MiniDelay<5000;MiniDelay++);
 	GPIO_WritePin(LCD_EPort,LCD_EPin,1);
 	for(int MiniDelay=0;MiniDelay<5000;MiniDelay++);
-	for (int DataPortCounter=0;DataPortCounter<8;DataPortCounter++){
+	for (int DataPortCounter=3;DataPortCounter<11;DataPortCounter++){
 		GPIO_WritePin(LCD_DataPort,DataPortCounter,command & (1<<(DataPortCounter-3)));
 	}
 	for(int MiniDelay=0;MiniDelay<5000;MiniDelay++);
