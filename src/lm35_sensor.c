@@ -11,9 +11,8 @@
  *******************************************************************************/
 
 #include "lm35_sensor.h"
-
+#include "delay.h"
 #include "adc.h"
-#include "LCD-4bit.h"
 
 /*
  * Description :
@@ -30,6 +29,9 @@ unsigned char LM35_getTemperature(void)
 	valid_flag = ADC_ReadData(&adc_value);
 #endif
 
+#if(USE_POLLING==LOGIC_LOW)
+//	delay_ms(5);
+#endif
 	if(!valid_flag)
 	{
 		/* Calculate the temperature from the ADC value*/
