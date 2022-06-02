@@ -13,7 +13,7 @@
 #define USE_POLLING 1
 
 #define ADC_MAX_VOLT_VALUE	5
-#define ADC_MAXIMUM_VALUE	4095
+#define ADC_MAXIMUM_VALUE	4095.0f
 
 #define ADC_CHANNEL_PIN_ID	PIN0_ID
 
@@ -22,7 +22,7 @@ extern volatile unsigned short int adc_value;
 
 
 typedef enum {bit12,bit10,bit8,bit6}Resolution;
-typedef enum  {single , continuous}Conversion_mode;
+typedef enum  {SINGLE , CONTINUOUS}Conversion_mode;
 
 typedef struct myStruct {
 

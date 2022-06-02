@@ -30,8 +30,9 @@ unsigned char LM35_getTemperature(void)
 #endif
 
 #if(USE_POLLING==LOGIC_LOW)
-//	delay_ms(5);
+	delay_ms(10);
 #endif
+
 	if(!valid_flag)
 	{
 		/* Calculate the temperature from the ADC value*/

@@ -53,18 +53,18 @@ void GPIO_Init(GPIO_TypeDef * GPIOx, char pin, GPIO_PinDirection dir,char mode ,
 
 		if(mode==NO_PULLUP_NO_PULLDOWN)
 		{
-			GPIOx->PUPDR &=~(1u<<(2*pin));
-			GPIOx->PUPDR &=~(1u<<(2*pin+1));
+//			GPIOx->PUPDR &=~(1u<<(2*pin));
+//			GPIOx->PUPDR &=~(1u<<(2*pin+1));
 		}
 		else if (mode==PULL_UP)
 		{
-			GPIOx->PUPDR |=(1u<<(2*pin));
-			GPIOx->PUPDR &=~(1u<<(2*pin+1));
+//			GPIOx->PUPDR |=(1u<<(2*pin));
+//			GPIOx->PUPDR &=~(1u<<(2*pin+1));
 		}
 		else if (mode==PULL_DOWN)
 		{
-			GPIOx->PUPDR &=~(1u<<(2*pin));
-			GPIOx->PUPDR |=(1u<<(2*pin+1));
+//			GPIOx->PUPDR &=~(1u<<(2*pin));
+//			GPIOx->PUPDR |=(1u<<(2*pin+1));
 		}
 
 	}

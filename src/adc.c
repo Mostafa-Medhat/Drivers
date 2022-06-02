@@ -31,7 +31,16 @@ void ADC_Init(ADCConfigType* ConfigParamPtr){
 	/*Select ADC1 conversion mode*/
 	ADC1->CR2=(ADC1->CR2 & 0xFFFFFFFD)|((ConfigParamPtr->conversionMode & 0x01)<<1);
 
-	if(USE_POLLING==1){
+
+//	ADC1->SQR1 &=~ (15<<20);
+//
+//	ADC1->SQR3 &=~ (31<<0);
+//
+//	ADC1->SMPR2 |= 7 << 0;
+
+
+	if(USE_POLLING==1)
+	{
 		ADC1->CR1 &=~(1<<5);// no interrupt
 	}
 	else
@@ -40,11 +49,12 @@ void ADC_Init(ADCConfigType* ConfigParamPtr){
 		NVIC->ISER[0]|=(1u<<(18));
 	}
 
-
 }
 
 void ADC_StartConv(unsigned char ChannelNum)
 {
+//	  ADC1->SQR3 |=(uint32_t)ChannelNum << (5 * (1 - 1));
+
 	/* Start conversion of regular channels */
 	  ADC1->CR2 |= ADC_CR2_SWSTART;
 }
