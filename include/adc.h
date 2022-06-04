@@ -12,12 +12,12 @@
 
 #define USE_POLLING 1
 
-#define ADC_MAX_VOLT_VALUE	5
 #define ADC_MAXIMUM_VALUE	4095.0f
 
 #define ADC_CHANNEL_PIN_ID	PIN0_ID
 
 extern volatile unsigned short int adc_value;
+extern volatile char Vref_voltage;
 
 
 
@@ -28,6 +28,7 @@ typedef struct myStruct {
 
 	 Resolution resolution;
 	 Conversion_mode conversionMode;
+	 int Vref;
 } ADCConfigType;
 
 

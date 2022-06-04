@@ -10,6 +10,7 @@
 #include "gpio.h"
 
 volatile unsigned short int adc_value=0;
+volatile char Vref_voltage=0;
 
 
 void ADC_Init(ADCConfigType* ConfigParamPtr){
@@ -49,6 +50,7 @@ void ADC_Init(ADCConfigType* ConfigParamPtr){
 		NVIC->ISER[0]|=(1u<<(18));
 	}
 
+	Vref_voltage=ConfigParamPtr->Vref;
 }
 
 void ADC_StartConv(unsigned char ChannelNum)

@@ -36,7 +36,7 @@ unsigned char LM35_getTemperature(void)
 	if(!valid_flag)
 	{
 		/* Calculate the temperature from the ADC value*/
-		temp_value = (unsigned char)(((unsigned long)adc_value*SENSOR_MAX_TEMPERATURE*ADC_MAX_VOLT_VALUE)/(ADC_MAXIMUM_VALUE*SENSOR_MAX_VOLT_VALUE));
+		temp_value = (unsigned char)(((unsigned long)adc_value*SENSOR_MAX_TEMPERATURE*Vref_voltage)/(ADC_MAXIMUM_VALUE*SENSOR_MAX_VOLT_VALUE));
 		return temp_value;
 	}
 	else
