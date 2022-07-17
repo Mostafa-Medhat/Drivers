@@ -41,6 +41,6 @@ unsigned char LM35_getTemperature(void)
 	}
 	else
 	{
-		return 0;
+		return UNCOMPLETED_CONVERSION;
 	}
 }

@@ -18,7 +18,6 @@
  *                                Definitions                                  *
  *******************************************************************************/
 
-#define SENSOR_CHANNEL_ID         2
 #define SENSOR_MAX_VOLT_VALUE     1.5f
 #define SENSOR_MAX_TEMPERATURE    150
 

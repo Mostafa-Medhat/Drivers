@@ -14,6 +14,7 @@ volatile char Vref_voltage=0;
 
 
 void ADC_Init(ADCConfigType* ConfigParamPtr){
+
 	/* Enable ADC1 clock */
 	RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
 
@@ -33,13 +34,6 @@ void ADC_Init(ADCConfigType* ConfigParamPtr){
 	ADC1->CR2=(ADC1->CR2 & 0xFFFFFFFD)|((ConfigParamPtr->conversionMode & 0x01)<<1);
 
 
-//	ADC1->SQR1 &=~ (15<<20);
-//
-//	ADC1->SQR3 &=~ (31<<0);
-//
-//	ADC1->SMPR2 |= 7 << 0;
-
-
 	if(USE_POLLING==1)
 	{
 		ADC1->CR1 &=~(1<<5);// no interrupt
@@ -47,7 +41,7 @@ void ADC_Init(ADCConfigType* ConfigParamPtr){
 	else
 	{
 		ADC1->CR1 |=(1<<5); 	 // with interrupt
-		NVIC->ISER[0]|=(1u<<(18));
+		NVIC->ISER[0]|=(1u<<(18));	// Enable ADC interrupt from Vector Table
 	}
 
 	Vref_voltage=ConfigParamPtr->Vref;
@@ -55,7 +49,10 @@ void ADC_Init(ADCConfigType* ConfigParamPtr){
 
 void ADC_StartConv(unsigned char ChannelNum)
 {
-//	  ADC1->SQR3 |=(uint32_t)ChannelNum << (5 * (1 - 1));
+	/*
+	 * Assign channel pin number to be the first sequence
+	 */
+	ADC1->SQR3=((ChannelNum &0x0F)<<0);
 
 	/* Start conversion of regular channels */
 	  ADC1->CR2 |= ADC_CR2_SWSTART;
@@ -66,6 +63,10 @@ void ADC_StartConv(unsigned char ChannelNum)
 #if(USE_POLLING==LOGIC_HIGH)
 void ADC_GetConversionState(unsigned char* ConversionStatePtr)
 {
+	/*
+	 * if Conversion is completed, assign 1 to ConversionState through its pointer
+	 * else, assign 0 to it.
+	 */
 	if(ADC1->SR & ADC_SR_EOC)
 	{
 	*ConversionStatePtr= LOGIC_HIGH;
@@ -81,6 +82,10 @@ unsigned char ADC_ReadData(volatile unsigned short int* DataPtr)
 {
 
 	unsigned char EOC_flag;
+
+	/*
+	 * Get conversion status .. then check whether it's completed or not
+	 */
 	ADC_GetConversionState(&EOC_flag);
 	if(EOC_flag)
 	{
